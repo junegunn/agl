@@ -5,11 +5,9 @@
 require 'set'
 
 dirs = Set.new
-IO.popen('ag -g ""') do |ag|
-  while line = ag.gets
-    dir = File.dirname(line)
-    puts dir if dir != '.' and dirs.add? dir
-    puts line
-  end
+IO.foreach('|ag -g ""') do |line|
+  dir = File.dirname(line)
+  puts dir if dir != '.' and dirs.add? dir
+  print line
 end
 
