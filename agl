@@ -8,10 +8,7 @@ dirs = Set.new
 IO.popen('ag -g ""') do |ag|
   while line = ag.gets
     dir = File.dirname(line)
-    if dir != '.' && !dirs.include?(dir)
-      dirs << dir
-      puts dir
-    end
+    puts dir if dir != '.' and dirs.add? dir
     puts line
   end
 end
