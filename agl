@@ -1,13 +1,9 @@
 #!/usr/bin/env ruby
-
 # List files *and* directories using ag
-
 require 'set'
-
 dirs = Set.new
 IO.foreach('|ag -g ""') do |line|
   dir = File.dirname(line)
   puts dir if dir != '.' and dirs.add? dir
   print line
 end
-
