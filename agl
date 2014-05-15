@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+# List files *and* directories using ag
+
+require 'set'
+
+dirs = Set.new
+IO.popen('ag -g ""') do |ag|
+  while line = ag.gets
+    dir = File.dirname(line)
+    if dir != '.' && !dirs.include?(dir)
+      dirs << dir
+      puts dir
+    end
+    puts line
+  end
+end
+
