@@ -4,6 +4,11 @@ require 'set'
 dirs = Set.new
 IO.foreach('|ag -g ""') do |line|
   dir = File.dirname(line)
-  puts dir if dir != '.' and dirs.add? dir
+  anc = []
+  while dir != '.' && dirs.add?(dir)
+    anc << dir
+    dir = File.dirname(dir)
+  end
+  puts anc.reverse unless anc.empty?
   print line
 end
